@@ -5,6 +5,8 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"os"
+	"fmt"
 )
 
 type Domain struct {
@@ -24,7 +26,14 @@ func main() {
 	router.HandleFunc("/domains/{id}", CreateDomain).Methods("POST")
 	router.HandleFunc("/domains/{id}", DeleteDomain).Methods("DELETE")
 
-	log.Fatal(http.ListenAndServe(":8000", router))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000"
+	}
+
+	fmt.Println("PORT:", port)
+
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
 
 func GetDomains(w http.ResponseWriter, r *http.Request) {

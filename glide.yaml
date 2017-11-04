@@ -1,0 +1,4 @@
+package: github.com/sklevenz/cert
+import:
+- package: github.com/gorilla/mux
+  version: ^1.5.0
